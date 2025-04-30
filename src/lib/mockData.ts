@@ -1,5 +1,5 @@
 // Mock data store for static site export
-let projects = [
+const projects = [
   {
     id: '1',
     title: 'Example Research Project',
