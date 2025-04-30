@@ -1,9 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { createProject } from '@/lib/mockData';
+import { createProject, getAllProjects } from '@/lib/mockData';
 
 export default function NewProjectPage() {
   const router = useRouter();
@@ -19,20 +19,34 @@ export default function NewProjectPage() {
     const title = formData.get('title') as string;
     const description = formData.get('description') as string;
     
+    console.log('Creating project with:', { title, description });
+    
+    if (!title.trim()) {
+      setError('Project title is required');
+      setIsSubmitting(false);
+      return;
+    }
+    
     try {
       // For demo purposes, we're using a default user ID
       // In a real app, this would come from authentication
       const userId = 'default-user-id';
       
       // Use mock data function instead of API call
-      createProject({
+      const newProject = createProject({
         title,
         description,
         userId,
       });
       
-      router.push('/projects');
-      router.refresh();
+      console.log('Project created:', newProject);
+      
+      // Check if project was added successfully
+      const allProjects = getAllProjects();
+      console.log('All projects after creation:', allProjects);
+      
+      // Force a hard navigation instead of client-side transition
+      window.location.href = '/projects';
     } catch (err) {
       console.error('Error creating project:', err);
       setError(err instanceof Error ? err.message : 'An error occurred');

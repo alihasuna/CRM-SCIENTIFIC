@@ -1,5 +1,5 @@
 // Mock data store for static site export
-const projects = [
+const initialProjects = [
   {
     id: '1',
     title: 'Example Research Project',
@@ -10,13 +10,56 @@ const projects = [
   }
 ];
 
+// Initialize projects from localStorage if available, otherwise use initial data
+let projects = initialProjects;
+
+// Check if we're in a browser environment (not during static rendering)
+if (typeof window !== 'undefined') {
+  try {
+    const savedProjects = localStorage.getItem('projects');
+    if (savedProjects) {
+      projects = JSON.parse(savedProjects);
+      console.log('Loaded projects from localStorage:', projects);
+    } else {
+      // If no projects in localStorage, initialize with default and save
+      localStorage.setItem('projects', JSON.stringify(initialProjects));
+      console.log('Initialized localStorage with default projects');
+    }
+  } catch (error) {
+    console.error('Error loading projects from localStorage:', error);
+  }
+}
+
 // Get all projects
 export function getAllProjects() {
+  // If in browser, get fresh data from localStorage
+  if (typeof window !== 'undefined') {
+    try {
+      const savedProjects = localStorage.getItem('projects');
+      if (savedProjects) {
+        return JSON.parse(savedProjects);
+      }
+    } catch (error) {
+      console.error('Error reading from localStorage:', error);
+    }
+  }
   return [...projects];
 }
 
 // Get project by ID
 export function getProjectById(id: string) {
+  // If in browser, get fresh data from localStorage
+  if (typeof window !== 'undefined') {
+    try {
+      const savedProjects = localStorage.getItem('projects');
+      if (savedProjects) {
+        const projectsArray = JSON.parse(savedProjects);
+        return projectsArray.find((project: any) => project.id === id);
+      }
+    } catch (error) {
+      console.error('Error reading from localStorage:', error);
+    }
+  }
   return projects.find(project => project.id === id);
 }
 
@@ -37,8 +80,15 @@ export function createProject(data: {
   
   projects.push(newProject);
   
-  // In a real application with localStorage:
-  // localStorage.setItem('projects', JSON.stringify(projects));
+  // Save to localStorage if in browser environment
+  if (typeof window !== 'undefined') {
+    try {
+      localStorage.setItem('projects', JSON.stringify(projects));
+      console.log('Saved project to localStorage:', newProject);
+    } catch (error) {
+      console.error('Error saving to localStorage:', error);
+    }
+  }
   
   return newProject;
 }
@@ -59,8 +109,15 @@ export function updateProject(id: string, data: {
   
   projects[index] = updatedProject;
   
-  // In a real application with localStorage:
-  // localStorage.setItem('projects', JSON.stringify(projects));
+  // Save to localStorage if in browser environment
+  if (typeof window !== 'undefined') {
+    try {
+      localStorage.setItem('projects', JSON.stringify(projects));
+      console.log('Updated project in localStorage:', updatedProject);
+    } catch (error) {
+      console.error('Error saving to localStorage:', error);
+    }
+  }
   
   return updatedProject;
 }
@@ -72,8 +129,15 @@ export function deleteProject(id: string) {
   
   projects.splice(index, 1);
   
-  // In a real application with localStorage:
-  // localStorage.setItem('projects', JSON.stringify(projects));
+  // Save to localStorage if in browser environment
+  if (typeof window !== 'undefined') {
+    try {
+      localStorage.setItem('projects', JSON.stringify(projects));
+      console.log('Deleted project from localStorage, remaining projects:', projects.length);
+    } catch (error) {
+      console.error('Error saving to localStorage:', error);
+    }
+  }
   
   return true;
 } 
