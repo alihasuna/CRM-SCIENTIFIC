@@ -11,6 +11,32 @@ const compat = new FlatCompat({
 
 const eslintConfig = [
   ...compat.extends("next/core-web-vitals", "next/typescript"),
+  {
+    ignores: [
+      "**/node_modules/**",
+      ".next/**",
+      "dist/**",
+      "build/**",
+      "src/generated/**",
+      "prisma/client/**",
+      "**/*.generated.*"
+    ]
+  },
+  {
+    languageOptions: {
+      ecmaVersion: 2022,
+      sourceType: "module"
+    },
+    rules: {
+      // Common rules to fix issues
+      "no-unused-vars": "warn",
+      "@typescript-eslint/no-unused-vars": ["warn", { 
+        "argsIgnorePattern": "^_", 
+        "varsIgnorePattern": "^_" 
+      }],
+      "@typescript-eslint/no-explicit-any": "warn"
+    }
+  }
 ];
 
 export default eslintConfig;

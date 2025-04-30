@@ -1,0 +1,19 @@
+# Dependencies
+node_modules/
+
+# Build directories
+.next/
+dist/
+build/
+
+# Generated files
+src/generated/
+prisma/client/
+*.generated.*
+
+# Environment files
+.env
+.env.*
+
+# Other
+.git/ 
