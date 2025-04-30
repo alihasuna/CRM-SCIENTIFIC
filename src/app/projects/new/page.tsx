@@ -1,0 +1,113 @@
+'use client';
+
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+
+export default function NewProjectPage() {
+  const router = useRouter();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState('');
+  
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setIsSubmitting(true);
+    setError('');
+    
+    const formData = new FormData(event.currentTarget);
+    const title = formData.get('title') as string;
+    const description = formData.get('description') as string;
+    
+    try {
+      // For demo purposes, we're using a default user ID
+      // In a real app, this would come from authentication
+      const userId = 'default-user-id';
+      
+      const response = await fetch('/api/projects', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          title,
+          description,
+          userId,
+        }),
+      });
+      
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || 'Failed to create project');
+      }
+      
+      router.push('/projects');
+      router.refresh();
+    } catch (err) {
+      console.error('Error creating project:', err);
+      setError(err instanceof Error ? err.message : 'An error occurred');
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+  
+  return (
+    <div className="max-w-3xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
+      <h1 className="text-3xl font-bold text-gray-900 mb-8">New Research Project</h1>
+      
+      {error && (
+        <div className="mb-6 p-4 text-sm text-red-700 bg-red-100 rounded-md" role="alert">
+          {error}
+        </div>
+      )}
+      
+      <form onSubmit={handleSubmit} className="space-y-6 bg-white p-6 rounded-lg shadow">
+        <div>
+          <label htmlFor="title" className="block text-sm font-medium text-gray-700">
+            Project Title
+          </label>
+          <div className="mt-1">
+            <input
+              type="text"
+              name="title"
+              id="title"
+              required
+              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+              placeholder="e.g., Quantum Machine Learning Research"
+            />
+          </div>
+        </div>
+        
+        <div>
+          <label htmlFor="description" className="block text-sm font-medium text-gray-700">
+            Description
+          </label>
+          <div className="mt-1">
+            <textarea
+              id="description"
+              name="description"
+              rows={4}
+              className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
+              placeholder="Describe your research project..."
+            />
+          </div>
+        </div>
+        
+        <div className="flex justify-end space-x-3">
+          <Link
+            href="/projects"
+            className="inline-flex justify-center py-2 px-4 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+          >
+            Cancel
+          </Link>
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {isSubmitting ? 'Creating...' : 'Create Project'}
+          </button>
+        </div>
+      </form>
+    </div>
+  );
+} 
