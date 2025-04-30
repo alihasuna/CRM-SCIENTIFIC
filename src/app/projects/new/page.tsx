@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { createProject } from '@/lib/mockData';
 
 export default function NewProjectPage() {
   const router = useRouter();
@@ -23,22 +24,12 @@ export default function NewProjectPage() {
       // In a real app, this would come from authentication
       const userId = 'default-user-id';
       
-      const response = await fetch('/api/projects', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          title,
-          description,
-          userId,
-        }),
+      // Use mock data function instead of API call
+      createProject({
+        title,
+        description,
+        userId,
       });
-      
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || 'Failed to create project');
-      }
       
       router.push('/projects');
       router.refresh();

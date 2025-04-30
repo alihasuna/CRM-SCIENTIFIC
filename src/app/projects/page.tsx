@@ -1,28 +1,23 @@
 import Link from 'next/link';
-import prisma from '@/lib/prisma';
+import { getAllProjects } from '@/lib/mockData';
 
-async function getProjects() {
-  const projects = await prisma.project.findMany({
-    include: {
-      milestones: true,
-      documents: true,
-      _count: {
-        select: {
-          milestones: true,
-          documents: true
-        }
-      }
-    },
-    orderBy: {
-      updatedAt: 'desc'
+function getProjects() {
+  // Use mock data instead of Prisma
+  const projects = getAllProjects().map(project => ({
+    ...project,
+    milestones: [],
+    documents: [],
+    _count: {
+      milestones: 0,
+      documents: 0
     }
-  });
+  }));
   
   return projects;
 }
 
-export default async function ProjectsPage() {
-  const projects = await getProjects();
+export default function ProjectsPage() {
+  const projects = getProjects();
   
   return (
     <div className="max-w-7xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
