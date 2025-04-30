@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 
+// Configure dynamic behavior for static export
+export const dynamic = 'force-dynamic';
+
 // GET all projects
 export async function GET() {
   try {
