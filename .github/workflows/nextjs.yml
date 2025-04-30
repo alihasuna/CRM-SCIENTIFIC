@@ -40,7 +40,7 @@ jobs:
         run: npx prisma db push && npx prisma db seed
         
       - name: Build with Next.js
-        run: npm run build -- --no-lint
+        run: npm run build
         
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

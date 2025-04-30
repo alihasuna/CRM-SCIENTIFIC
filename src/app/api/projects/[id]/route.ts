@@ -1,13 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 
-// GET a single project by ID
+// Correct type definition for the params
+type RouteParams = { params: { id: string } };
+
+// GET a single project by ID - fix the type definition
 export async function GET(
   _request: NextRequest,
-  context: { params: { id: string } }
+  { params }: RouteParams
 ) {
   try {
-    const { id } = context.params;
+    const { id } = params;
     
     const project = await prisma.project.findUnique({
       where: { id },
@@ -35,10 +38,10 @@ export async function GET(
   }
 }
 
-// PUT update a project
+// Also update the types for PUT and DELETE
 export async function PUT(
   _request: NextRequest,
-  { params: _params }: { params: { id: string } }
+  { params: _params }: RouteParams
 ) {
   try {
     const { id } = _params;
@@ -62,10 +65,9 @@ export async function PUT(
   }
 }
 
-// DELETE delete a project
 export async function DELETE(
   _request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: RouteParams
 ) {
   try {
     const { id } = params;
@@ -82,4 +84,4 @@ export async function DELETE(
       { status: 500 }
     );
   }
-} 
+}
