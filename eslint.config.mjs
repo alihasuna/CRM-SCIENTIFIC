@@ -36,6 +36,12 @@ const eslintConfig = [
       }],
       "@typescript-eslint/no-explicit-any": "warn"
     }
+  },
+  {
+    files: ["src/lib/prisma.ts"],
+    rules: {
+      "no-var": "off" // Allow var in the prisma file for global declarations
+    }
   }
 ];
 
