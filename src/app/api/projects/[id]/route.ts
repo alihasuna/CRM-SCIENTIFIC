@@ -3,7 +3,7 @@ import prisma from '@/lib/prisma';
 
 // GET a single project by ID
 export async function GET(
-  request: NextRequest,
+  _request: NextRequest,
   context: { params: { id: string } }
 ) {
   try {
@@ -37,12 +37,12 @@ export async function GET(
 
 // PUT update a project
 export async function PUT(
-  request: NextRequest,
-  { params }: { params: { id: string } }
+  _request: NextRequest,
+  { params: _params }: { params: { id: string } }
 ) {
   try {
-    const { id } = params;
-    const body = await request.json();
+    const { id } = _params;
+    const body = await _request.json();
     
     const updatedProject = await prisma.project.update({
       where: { id },
@@ -62,9 +62,9 @@ export async function PUT(
   }
 }
 
-// DELETE a project
+// DELETE delete a project
 export async function DELETE(
-  request: NextRequest,
+  _request: NextRequest,
   { params }: { params: { id: string } }
 ) {
   try {
