@@ -1,74 +1,107 @@
-# Research Tracking System
+# CRM-SCIENTIFIC
 
-A CRM-like system for scientific research, helping researchers organize milestones, documents, and share progress with academic supervisors.
+A research project management application for tracking research projects, milestones, and documents.
+
+## Table of Contents
+- [Features](#features)
+- [Technology Stack](#technology-stack)
+- [Setup and Development](#setup-and-development)
+- [Project Structure](#project-structure)
+- [Deployment](#deployment)
 
 ## Features
 
-- **Project Management**: Create and manage research projects
-- **Milestone Tracking**: Set and monitor research milestones with deadlines
-- **Document Management**: Store and organize research papers, reports, and presentations
-- **Note Taking**: Keep track of important research notes and meeting minutes
-- **Progress Sharing**: Share progress with academic supervisors
+- **Project Management**: Create, view, edit, and delete research projects
+- **Milestone Tracking**: Track research milestones with statuses (not started, in progress, completed)
+- **Document Management**: Organize research documents by project
+- **Dashboard**: Get an overview of active projects and upcoming milestones
 
-## Tech Stack
+## Technology Stack
 
-- **Frontend**: Next.js 15 with React 19, Tailwind CSS
-- **Backend**: Next.js API Routes
-- **Database**: SQLite with Prisma ORM (easily changeable to PostgreSQL, MySQL, etc.)
-- **Hosting**: GitHub Pages (free)
+- **Framework**: Next.js 15
+- **UI**: Tailwind CSS
+- **Language**: TypeScript
+- **Data**: Mock data (will be connected to a backend in the future)
 
-## Getting Started
+## Setup and Development
 
 ### Prerequisites
 
-- Node.js 18+ 
+- Node.js (v18 or higher)
 - npm or yarn
 
 ### Installation
 
 1. Clone the repository
-   ```
-   git clone https://github.com/yourusername/CRM-SCIENTIFIC.git
-   cd CRM-SCIENTIFIC
-   ```
+```bash
+git clone https://github.com/alihasuna/CRM-SCIENTIFIC.git
+cd CRM-SCIENTIFIC
+```
 
 2. Install dependencies
-   ```
-   npm install
-   ```
+```bash
+npm install
+# or
+yarn install
+```
 
-3. Generate Prisma client
-   ```
-   npx prisma generate
-   ```
+3. Start the development server
+```bash
+npm run dev
+# or
+yarn dev
+```
 
-4. Push database schema and seed with sample data
-   ```
-   npx prisma db push
-   npx prisma db seed
-   ```
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-5. Start the development server
-   ```
-   npm run dev
-   ```
+### Production Mode
 
-6. Open [http://localhost:3000](http://localhost:3000) in your browser
+For local testing of the production build:
+
+```bash
+npm run build
+npm run start
+```
+
+## Project Structure
+
+```
+CRM-SCIENTIFIC/
+├── public/                  # Static assets
+├── src/
+│   ├── app/                 # Next.js app directory
+│   │   ├── api/            # API routes
+│   │   ├── dashboard/      # Dashboard page
+│   │   ├── documents/      # Documents list page  
+│   │   ├── milestones/     # Milestones list page
+│   │   ├── projects/       # Projects pages
+│   │   │   ├── [id]/       # Project detail and edit pages
+│   │   │   ├── new/        # New project page
+│   │   ├── layout.tsx      # Root layout
+│   ├── components/         # Reusable components
+│   ├── lib/                # Utilities and helpers
+│   │   ├── mockData.ts     # Mock data functions
+```
+
+## Important Notes for Development
+
+When working with this project, be aware of these specific characteristics:
+
+1. **Static Export Configuration**: The project is configured to use static export for production but dynamic rendering for development. This is handled in `next.config.ts` by setting `output: process.env.NODE_ENV === 'production' ? 'export' : undefined`.
+
+2. **Client/Server Component Split**: The project uses a pattern of splitting pages into server components that fetch data and client components that handle interactivity. This approach is used in the project detail and edit pages.
+
+3. **Mock Data**: Currently using mock data from `@/lib/mockData.ts`. In a future version, this will be replaced with actual API calls.
 
 ## Deployment
 
-The project is configured for automatic deployment to GitHub Pages.
+The project is configured for deployment on GitHub Pages:
 
-1. Fork this repository
-2. Enable GitHub Pages in your repository settings
-3. The GitHub Actions workflow will automatically build and deploy the site
+```bash
+npm run build
+# Files will be generated in the 'out' directory
+```
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Acknowledgments
-
-- Next.js team for the awesome framework
-- Prisma team for the excellent ORM
-- Tailwind CSS for the utility-first CSS framework
+MIT
