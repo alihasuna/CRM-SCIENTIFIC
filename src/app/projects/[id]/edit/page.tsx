@@ -1,5 +1,3 @@
-'use server';
-
 import { getProjectById, getAllProjects } from '@/lib/mockData';
 import EditProjectClient from './EditProjectClient';
 

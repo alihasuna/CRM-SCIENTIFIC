@@ -1,5 +1,3 @@
-'use server';
-
 import { getProjectById, getAllProjects } from '@/lib/mockData';
 import { notFound } from 'next/navigation';
 import ProjectDetailClient from './ProjectDetailClient';
