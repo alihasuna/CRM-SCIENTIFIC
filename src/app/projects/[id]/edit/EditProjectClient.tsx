@@ -1,40 +1,47 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { updateProject } from '@/lib/mockData';
 
-interface Project {
+type Project = {
   id: string;
   title: string;
   description: string;
+  userId: string;
   createdAt: string;
   updatedAt: string;
-}
+};
 
-interface EditProjectClientProps {
+type EditProjectClientProps = {
   project: Project | null;
   params: { id: string };
-}
+};
 
-export default function EditProjectClient({ project: initialProject, params }: EditProjectClientProps) {
+export default function EditProjectClient({ project, params }: EditProjectClientProps) {
   const router = useRouter();
-  const [project, setProject] = useState<Project | null>(initialProject);
-  const [isLoading, setIsLoading] = useState(!initialProject);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
   
-  useEffect(() => {
-    if (initialProject) {
-      setProject(initialProject);
-      setIsLoading(false);
-    } else {
-      setError('Project not found');
-      setIsLoading(false);
-    }
-  }, [initialProject]);
-  
+  if (!project) {
+    return (
+      <div className="max-w-3xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
+        <div className="text-center">
+          <p className="text-red-500">Project not found</p>
+          <div className="mt-4">
+            <Link
+              href="/projects"
+              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700"
+            >
+              Back to Projects
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsSubmitting(true);
@@ -68,52 +75,12 @@ export default function EditProjectClient({ project: initialProject, params }: E
       setIsSubmitting(false);
     }
   };
-  
-  if (isLoading) {
-    return (
-      <div className="max-w-3xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
-        <div className="text-center">
-          <p className="text-gray-500">Loading project details...</p>
-        </div>
-      </div>
-    );
-  }
-  
-  if (error && !project) {
-    return (
-      <div className="max-w-3xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
-        <div className="bg-red-50 p-4 rounded-md">
-          <div className="flex">
-            <div className="flex-shrink-0">
-              <svg className="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
-              </svg>
-            </div>
-            <div className="ml-3">
-              <h3 className="text-sm font-medium text-red-800">{error}</h3>
-              <div className="mt-2 text-sm text-red-700">
-                <p>The project you are trying to edit could not be found.</p>
-              </div>
-              <div className="mt-4">
-                <Link 
-                  href="/projects"
-                  className="text-sm font-medium text-red-600 hover:text-red-500"
-                >
-                  Go back to projects
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-  
+
   return (
     <div className="max-w-3xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
       <div className="flex items-center mb-6">
-        <Link 
-          href={`/projects/${params.id}`}
+        <Link
+          href={`/projects/${project.id}`}
           className="mr-4 p-1 rounded-full bg-gray-100 hover:bg-gray-200"
         >
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="h-5 w-5 text-gray-600">
@@ -140,7 +107,7 @@ export default function EditProjectClient({ project: initialProject, params }: E
               name="title"
               id="title"
               required
-              defaultValue={project?.title || ''}
+              defaultValue={project.title}
               className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
             />
           </div>
@@ -155,7 +122,7 @@ export default function EditProjectClient({ project: initialProject, params }: E
               id="description"
               name="description"
               rows={4}
-              defaultValue={project?.description || ''}
+              defaultValue={project.description}
               className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm"
             />
           </div>
@@ -163,7 +130,7 @@ export default function EditProjectClient({ project: initialProject, params }: E
         
         <div className="flex justify-end space-x-3">
           <Link
-            href={`/projects/${params.id}`}
+            href={`/projects/${project.id}`}
             className="inline-flex justify-center py-2 px-4 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
           >
             Cancel
