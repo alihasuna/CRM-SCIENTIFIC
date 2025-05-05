@@ -19,7 +19,10 @@ const eslintConfig = [
       "build/**",
       "src/generated/**",
       "prisma/client/**",
-      "**/*.generated.*"
+      "**/*.generated.*",
+      ".env",
+      ".env.*",
+      ".git/**"
     ]
   },
   {

@@ -1,12 +1,12 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+// import { useRouter } from 'next/navigation'; // Removed as it's unused
 import Link from 'next/link';
 import { createProject, getAllProjects } from '@/lib/mockData';
 
 export default function NewProjectPage() {
-  const router = useRouter();
+  // const router = useRouter(); // Removed as it's unused
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
   

@@ -1,19 +1,29 @@
 import Link from 'next/link';
-import { getAllProjects } from '@/lib/mockData';
+import { getAllProjects, Project } from '@/lib/mockData';
 
 export default function Dashboard() {
-  const projects = getAllProjects();
-  const recentProjects = projects.slice(0, 3); // Show only 3 most recent projects
+  const projects: Project[] = getAllProjects();
+  const recentProjects = projects
+    .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+    .slice(0, 3);
   
-  // Mock stats
+  const totalMilestones = projects.reduce((sum, p) => sum + (p.milestones?.length || 0), 0);
+  const completedTasks = projects.reduce((sum, p) => 
+    sum + (p.milestones?.reduce((taskSum, m) => 
+      taskSum + (m.tasks?.filter(t => t.completed).length || 0), 0) || 0)
+  , 0);
+  const totalTasks = projects.reduce((sum, p) => 
+    sum + (p.milestones?.reduce((taskSum, m) => 
+      taskSum + (m.tasks?.length || 0), 0) || 0)
+  , 0);
+  
   const stats = [
     { name: 'Total Projects', value: projects.length },
-    { name: 'Active Projects', value: projects.length },
-    { name: 'Completed Milestones', value: 5 },
-    { name: 'Pending Tasks', value: 7 },
+    { name: 'Total Milestones', value: totalMilestones },
+    { name: 'Total Tasks', value: totalTasks },
+    { name: 'Completed Tasks', value: completedTasks },
   ];
   
-  // Mock activity items
   const activityItems = [
     { id: 1, type: 'created', content: 'Created a new research project', date: '2 hours ago' },
     { id: 2, type: 'updated', content: 'Updated project milestone', date: '1 day ago' },
@@ -26,7 +36,6 @@ export default function Dashboard() {
       <div className="px-4 py-6 sm:px-0">
         <h1 className="text-2xl font-semibold text-gray-900">Dashboard</h1>
         
-        {/* Stats section */}
         <div className="mt-6">
           <dl className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {stats.map((stat) => (
@@ -39,7 +48,6 @@ export default function Dashboard() {
         </div>
         
         <div className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-3">
-          {/* Projects section */}
           <div className="bg-white shadow rounded-lg col-span-2">
             <div className="px-4 py-5 border-b border-gray-200 sm:px-6">
               <div className="flex items-center justify-between">
@@ -54,22 +62,22 @@ export default function Dashboard() {
             </div>
             <ul className="divide-y divide-gray-200">
               {recentProjects.length > 0 ? (
-                recentProjects.map((project) => (
+                recentProjects.map((project: Project) => (
                   <li key={project.id} className="px-4 py-4 sm:px-6">
                     <Link href={`/projects/${project.id}`} className="block hover:bg-gray-50">
                       <div className="flex items-center justify-between">
                         <p className="text-md font-medium text-blue-600 truncate">{project.title}</p>
                         <div className="ml-2 flex-shrink-0 flex">
-                          <p className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                            Active
+                          <p className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
+                            {project.milestones?.length || 0} Milestone(s)
                           </p>
                         </div>
                       </div>
                       <div className="mt-2 sm:flex sm:justify-between">
                         <div className="sm:flex">
                           <p className="flex items-center text-sm text-gray-500">
-                            {project.description?.substring(0, 100) || 'No description available'}
-                            {project.description && project.description.length > 100 ? '...' : ''}
+                            {project.description?.substring(0, 150) || 'No description available'}
+                            {project.description && project.description.length > 150 ? '...' : ''}
                           </p>
                         </div>
                       </div>
@@ -97,7 +105,6 @@ export default function Dashboard() {
             )}
           </div>
           
-          {/* Activity section */}
           <div className="bg-white shadow rounded-lg">
             <div className="px-4 py-5 border-b border-gray-200 sm:px-6">
               <h2 className="text-lg font-medium text-gray-900">Recent Activity</h2>

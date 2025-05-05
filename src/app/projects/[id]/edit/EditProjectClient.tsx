@@ -15,7 +15,7 @@ type Project = {
 };
 
 type EditProjectClientProps = {
-  project: Project | null;
+  project: Project | null | undefined;
   params: { id: string };
 };
 

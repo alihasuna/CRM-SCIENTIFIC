@@ -66,7 +66,7 @@ export default function DeleteProjectModal({
                 </h3>
                 <div className="mt-2">
                   <p className="text-sm text-gray-500">
-                    Are you sure you want to delete "{projectTitle}"? This action cannot be undone.
+                    Are you sure you want to delete &quot;{projectTitle}&quot;? This action cannot be undone.
                     All milestones, documents, and notes associated with this project will be permanently removed.
                   </p>
                 </div>
