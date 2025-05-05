@@ -34,48 +34,48 @@ export default function Dashboard() {
   return (
     <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
       <div className="px-4 py-6 sm:px-0">
-        <h1 className="text-2xl font-semibold text-gray-900">Dashboard</h1>
+        <h1 className="text-2xl font-semibold text-gray-900 dark:text-gray-100">Dashboard</h1>
         
         <div className="mt-6">
           <dl className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {stats.map((stat) => (
-              <div key={stat.name} className="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6">
-                <dt className="text-sm font-medium text-gray-500 truncate">{stat.name}</dt>
-                <dd className="mt-1 text-3xl font-semibold text-gray-900">{stat.value}</dd>
+              <div key={stat.name} className="px-4 py-5 bg-white dark:bg-gray-800 shadow rounded-lg overflow-hidden sm:p-6 border border-gray-200 dark:border-gray-700">
+                <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">{stat.name}</dt>
+                <dd className="mt-1 text-3xl font-semibold text-gray-900 dark:text-gray-100">{stat.value}</dd>
               </div>
             ))}
           </dl>
         </div>
         
         <div className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-3">
-          <div className="bg-white shadow rounded-lg col-span-2">
-            <div className="px-4 py-5 border-b border-gray-200 sm:px-6">
+          <div className="bg-white dark:bg-gray-800 shadow rounded-lg col-span-2 border border-gray-200 dark:border-gray-700">
+            <div className="px-4 py-5 border-b border-gray-200 dark:border-gray-700 sm:px-6">
               <div className="flex items-center justify-between">
-                <h2 className="text-lg font-medium text-gray-900">Recent Projects</h2>
+                <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">Recent Projects</h2>
                 <Link
                   href="/projects"
-                  className="text-sm font-medium text-blue-600 hover:text-blue-500"
+                  className="text-sm font-medium text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300"
                 >
                   View all
                 </Link>
               </div>
             </div>
-            <ul className="divide-y divide-gray-200">
+            <ul className="divide-y divide-gray-200 dark:divide-gray-700">
               {recentProjects.length > 0 ? (
                 recentProjects.map((project: Project) => (
                   <li key={project.id} className="px-4 py-4 sm:px-6">
-                    <Link href={`/projects/${project.id}`} className="block hover:bg-gray-50">
+                    <Link href={`/projects/${project.id}`} className="block hover:bg-gray-50 dark:hover:bg-gray-700 rounded-md -m-2 p-2">
                       <div className="flex items-center justify-between">
-                        <p className="text-md font-medium text-blue-600 truncate">{project.title}</p>
+                        <p className="text-md font-medium text-blue-600 dark:text-blue-400 truncate">{project.title}</p>
                         <div className="ml-2 flex-shrink-0 flex">
-                          <p className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
+                          <p className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
                             {project.milestones?.length || 0} Milestone(s)
                           </p>
                         </div>
                       </div>
                       <div className="mt-2 sm:flex sm:justify-between">
                         <div className="sm:flex">
-                          <p className="flex items-center text-sm text-gray-500">
+                          <p className="flex items-center text-sm text-gray-500 dark:text-gray-400">
                             {project.description?.substring(0, 150) || 'No description available'}
                             {project.description && project.description.length > 150 ? '...' : ''}
                           </p>
@@ -85,19 +85,19 @@ export default function Dashboard() {
                   </li>
                 ))
               ) : (
-                <li className="px-4 py-5 text-center text-sm text-gray-500">
+                <li className="px-4 py-5 text-center text-sm text-gray-500 dark:text-gray-400">
                   No projects yet.{' '}
-                  <Link href="/projects/new" className="font-medium text-blue-600 hover:text-blue-500">
+                  <Link href="/projects/new" className="font-medium text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300">
                     Create your first project
                   </Link>
                 </li>
               )}
             </ul>
             {recentProjects.length > 0 && (
-              <div className="px-4 py-4 sm:px-6 border-t border-gray-200">
+              <div className="px-4 py-4 sm:px-6 border-t border-gray-200 dark:border-gray-700">
                 <Link
                   href="/projects/new"
-                  className="w-full flex justify-center items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700"
+                  className="w-full flex justify-center items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-gray-900"
                 >
                   New Project
                 </Link>
@@ -105,11 +105,11 @@ export default function Dashboard() {
             )}
           </div>
           
-          <div className="bg-white shadow rounded-lg">
-            <div className="px-4 py-5 border-b border-gray-200 sm:px-6">
-              <h2 className="text-lg font-medium text-gray-900">Recent Activity</h2>
+          <div className="bg-white dark:bg-gray-800 shadow rounded-lg border border-gray-200 dark:border-gray-700">
+            <div className="px-4 py-5 border-b border-gray-200 dark:border-gray-700 sm:px-6">
+              <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">Recent Activity</h2>
             </div>
-            <ul className="divide-y divide-gray-200 overflow-hidden" style={{ maxHeight: '400px' }}>
+            <ul className="divide-y divide-gray-200 dark:divide-gray-700 overflow-hidden" style={{ maxHeight: '400px' }}>
               {activityItems.map((item) => (
                 <li key={item.id} className="px-4 py-4 sm:px-6">
                   <div className="flex items-center space-x-3">
@@ -119,8 +119,8 @@ export default function Dashboard() {
                       item.type === 'added' ? 'bg-blue-500' : 'bg-purple-500'
                     }`}></div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm text-gray-800">{item.content}</p>
-                      <p className="text-xs text-gray-500">{item.date}</p>
+                      <p className="text-sm text-gray-800 dark:text-gray-200">{item.content}</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">{item.date}</p>
                     </div>
                   </div>
                 </li>

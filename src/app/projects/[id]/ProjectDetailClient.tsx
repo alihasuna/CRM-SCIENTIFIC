@@ -518,11 +518,11 @@ export default function ProjectDetailClient({
   return (
     <>
       <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-        {/* Display General Error */} 
+        {/* Error display - update styles */}
         {generalError && (
-            <div className="mb-4 p-3 text-sm text-red-700 bg-red-100 rounded-md fixed bottom-4 right-4 z-50 shadow-lg" role="alert">
+            <div className="mb-4 p-3 text-sm text-red-800 dark:text-red-200 bg-red-100 dark:bg-red-900/30 border border-red-300 dark:border-red-800/50 rounded-md fixed bottom-4 right-4 z-50 shadow-lg" role="alert">
                 {generalError}
-                <button onClick={() => setGeneralError(null)} className="ml-4 font-bold text-red-800">&times;</button>
+                <button onClick={() => setGeneralError(null)} className="ml-4 font-bold text-red-900 dark:text-red-100">&times;</button>
             </div>
         )}
         <div className="px-4 py-4 sm:px-0">
@@ -530,18 +530,18 @@ export default function ProjectDetailClient({
             <div className="flex items-center">
               <Link
                 href="/projects"
-                className="mr-4 p-1 rounded-full bg-gray-100 hover:bg-gray-200"
+                className="mr-4 p-1 rounded-full bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="h-5 w-5 text-gray-600">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="h-5 w-5 text-gray-600 dark:text-gray-400">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                 </svg>
               </Link>
-              <h1 className="text-2xl font-bold text-gray-900 truncate">{currentProject.title}</h1>
+              <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 truncate">{currentProject.title}</h1>
             </div>
             <div className="flex space-x-3">
               <Link 
                 href={`/projects/${currentProject.id}/edit`}
-                className="inline-flex items-center px-3 py-1.5 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+                className="inline-flex items-center px-3 py-1.5 border border-gray-300 dark:border-gray-600 text-sm font-medium rounded-md text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
@@ -549,7 +549,7 @@ export default function ProjectDetailClient({
                 Edit
               </Link>
               <button 
-                className="inline-flex items-center px-3 py-1.5 border border-red-300 text-sm font-medium rounded-md text-red-700 bg-white hover:bg-red-50"
+                className="inline-flex items-center px-3 py-1.5 border border-red-300 dark:border-red-600/50 text-sm font-medium rounded-md text-red-700 dark:text-red-400 bg-white dark:bg-red-900/10 hover:bg-red-50 dark:hover:bg-red-900/20"
                 onClick={handleDelete}
                 disabled={isDeleting}
               >
@@ -561,10 +561,9 @@ export default function ProjectDetailClient({
             </div>
           </div>
 
-          {/* General Plan and Aim */}
-          <div className="bg-white shadow rounded-lg mb-6">
-            <div className="px-6 py-5 border-b border-gray-200">
-              <h2 className="text-lg font-medium text-gray-900">General Plan and Aim</h2>
+          <div className="bg-white dark:bg-gray-800 shadow rounded-lg mb-6 border border-gray-200 dark:border-gray-700">
+            <div className="px-6 py-5 border-b border-gray-200 dark:border-gray-700">
+              <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">General Plan and Aim</h2>
             </div>
             <div className="px-6 py-5">
               <InlineEditField
@@ -579,13 +578,12 @@ export default function ProjectDetailClient({
             </div>
           </div>
 
-          {/* UPDATED: Milestones section */}
-          <div className="bg-white shadow rounded-lg mb-6">
-            <div className="px-6 py-5 border-b border-gray-200 flex justify-between items-center">
-              <h2 className="text-lg font-medium text-gray-900">Milestones & Tasks</h2>
+          <div className="bg-white dark:bg-gray-800 shadow rounded-lg mb-6 border border-gray-200 dark:border-gray-700">
+            <div className="px-6 py-5 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
+              <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">Milestones & Tasks</h2>
               <button 
                 onClick={() => setIsAddMilestoneModalOpen(true)}
-                className="inline-flex items-center px-3 py-1.5 border border-transparent text-sm font-medium rounded-md text-blue-700 bg-blue-100 hover:bg-blue-200"
+                className="inline-flex items-center px-3 py-1.5 border border-transparent text-sm font-medium rounded-md text-blue-700 bg-blue-100 hover:bg-blue-200 dark:bg-blue-900/50 dark:text-blue-300 dark:hover:bg-blue-900/70"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -595,52 +593,44 @@ export default function ProjectDetailClient({
             </div>
             <div className="overflow-hidden">
               {currentProject.milestones.length === 0 ? (
-                <p className="px-6 py-4 text-sm text-gray-500">No milestones defined for this project.</p>
+                <p className="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">No milestones defined for this project.</p>
               ) : (
-                <ul className="divide-y divide-gray-200">
+                <ul className="divide-y divide-gray-200 dark:divide-gray-700">
                   {currentProject.milestones.map((milestone: Milestone) => (
                     <li key={milestone.id} className="px-6 py-4 group relative">
                       <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center flex-1 min-w-0">
-                          {/* Status Indicator */}
                           <div className={`h-3 w-3 rounded-full mr-3 flex-shrink-0 ${
                             milestone.status === 'Completed' ? 'bg-green-500' :
-                            milestone.status === 'In Progress' ? 'bg-yellow-500' : 'bg-gray-300'
+                            milestone.status === 'In Progress' ? 'bg-yellow-500' : 'bg-gray-300 dark:bg-gray-600'
                           }`}></div>
-                          {/* Title and Description */}
                           <div className="flex-1 min-w-0">
-                             <p className="text-sm font-medium text-gray-900 truncate">{milestone.title}</p>
-                             {milestone.description && <p className="text-xs text-gray-500 mt-1">{milestone.description}</p>}
+                             <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">{milestone.title}</p>
+                             {milestone.description && <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{milestone.description}</p>}
                           </div>
                         </div>
-                        {/* Due Date */}
                         <div className="ml-2 flex-shrink-0 flex items-center space-x-2">
-                          <p className="text-xs text-gray-500">Due: {formatDate(milestone.dueDate)}</p>
-                          {/* Toggle Task Button */}
+                          <p className="text-xs text-gray-500 dark:text-gray-400">Due: {formatDate(milestone.dueDate)}</p>
                           {milestone.tasks.length > 0 && (
                              <button 
                                onClick={() => toggleTasksVisibility(milestone.id)}
-                               className="p-1 text-gray-400 hover:text-gray-600"
+                               className="p-1 text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300"
                              >
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={visibleTasks[milestone.id] ? "M19 9l-7 7-7-7" : "M5 15l7-7 7 7"} />
-                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={visibleTasks[milestone.id] ? "M19 9l-7 7-7-7" : "M5 15l7-7 7 7"} /></svg>
                              </button>
                           )}
-                          {/* Edit Milestone Button (appears on hover) */}
                           <button 
                             onClick={() => openEditMilestoneModal(milestone)}
-                            className="p-1 text-gray-400 hover:text-blue-600 opacity-0 group-hover:opacity-100 focus:opacity-100 transition-opacity"
+                            className="p-1 text-gray-400 hover:text-blue-600 dark:text-gray-500 dark:hover:text-blue-400 opacity-0 group-hover:opacity-100 focus:opacity-100 transition-opacity"
                             aria-label={`Edit milestone ${milestone.title}`}
                           >
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                               <path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                             </svg>
                           </button>
-                          {/* Delete Milestone Button (appears on hover) */}
                           <button 
                             onClick={() => handleDeleteMilestone(milestone.id, milestone.title)}
-                            className="p-1 text-gray-400 hover:text-red-600 opacity-0 group-hover:opacity-100 focus:opacity-100 transition-opacity"
+                            className="p-1 text-gray-400 hover:text-red-600 dark:text-gray-500 dark:hover:text-red-400 opacity-0 group-hover:opacity-100 focus:opacity-100 transition-opacity"
                             aria-label={`Delete milestone ${milestone.title}`}
                           >
                              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -650,15 +640,13 @@ export default function ProjectDetailClient({
                         </div>
                       </div>
 
-                      {/* Tasks List (Conditional) */}
                       {visibleTasks[milestone.id] && milestone.tasks.length > 0 && (
-                        <div className="mt-4 pt-3 pl-6 border-l border-gray-200 ml-1.5">
+                        <div className="mt-4 pt-3 pl-6 border-l border-gray-200 dark:border-gray-600 ml-1.5">
                           <div className="flex justify-between items-center mb-2">
-                            <h4 className="text-xs font-medium text-gray-500">Tasks:</h4>
-                             {/* Add Task Button */}
-                            <button 
-                              onClick={() => openAddTaskModal(milestone.id)} // Open Add Task Modal for this milestone
-                              className="inline-flex items-center px-2 py-1 border border-transparent text-xs font-medium rounded text-blue-700 bg-blue-100 hover:bg-blue-200"
+                            <h4 className="text-xs font-medium text-gray-500 dark:text-gray-400">Tasks:</h4>
+                             <button 
+                               onClick={() => openAddTaskModal(milestone.id)}
+                               className="inline-flex items-center px-2 py-1 border border-transparent text-xs font-medium rounded text-blue-700 bg-blue-100 hover:bg-blue-200 dark:bg-blue-900/50 dark:text-blue-300 dark:hover:bg-blue-900/70"
                              >
                                <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -667,37 +655,35 @@ export default function ProjectDetailClient({
                              </button>
                           </div>
                           {milestone.tasks.length === 0 ? (
-                            <p className="text-sm text-gray-400 italic">No tasks for this milestone yet.</p>
+                            <p className="text-sm text-gray-400 dark:text-gray-500 italic">No tasks for this milestone yet.</p>
                           ) : (
                             <ul className="space-y-3">
                               {milestone.tasks.map((task: Task) => (
-                                <li key={task.id} className="flex items-start space-x-3 group/task relative pr-10"> {/* Add padding right for buttons */}
+                                <li key={task.id} className="flex items-start space-x-3 group/task relative pr-10">
                                   <input 
                                     type="checkbox" 
                                     checked={task.completed}
                                     onChange={() => handleTaskToggle(milestone.id, task.id, task.completed)}
-                                    className="mt-1 h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                                    className="mt-1 h-4 w-4 text-blue-600 dark:text-blue-500 bg-gray-100 dark:bg-gray-900 border-gray-300 dark:border-gray-600 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2"
                                     aria-labelledby={`task-desc-${task.id}`}
                                   />
                                   <div className="flex-1">
-                                    <p id={`task-desc-${task.id}`} className={`text-sm ${task.completed ? 'line-through text-gray-500' : 'text-gray-800'}`}>{task.description}</p>
+                                    <p id={`task-desc-${task.id}`} className={`text-sm ${task.completed ? 'line-through text-gray-500 dark:text-gray-400' : 'text-gray-800 dark:text-gray-200'}`}>{task.description}</p>
                                     <div className="flex items-center space-x-2 mt-1">
                                       <span className={`px-1.5 py-0.5 text-xs font-medium rounded-full ${
-                                        task.status === 'Done' ? 'bg-green-100 text-green-800' :
-                                        task.status === 'In Progress' ? 'bg-yellow-100 text-yellow-800' :
-                                        task.status === 'Updated' ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-800'
+                                        task.status === 'Done' ? 'bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-300' :
+                                        task.status === 'In Progress' ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/50 dark:text-yellow-300' :
+                                        task.status === 'Updated' ? 'bg-blue-100 text-blue-800 dark:bg-blue-900/50 dark:text-blue-300' : 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300'
                                       }`}>{task.status}</span>
-                                      {task.dueDate && <p className="text-xs text-gray-400">Due: {formatDate(task.dueDate)}</p>}
+                                      {task.dueDate && <p className="text-xs text-gray-400 dark:text-gray-500">Due: {formatDate(task.dueDate)}</p>}
                                     </div>
-                                    {task.comments && <p className="text-xs text-gray-500 mt-1 italic">Comment: {task.comments}</p>}
+                                    {task.comments && <p className="text-xs text-gray-500 dark:text-gray-400 mt-1 italic">Comment: {task.comments}</p>}
                                   </div>
                                   
-                                  {/* Buttons Container */} 
                                   <div className="absolute top-0 right-0 flex items-center space-x-1 opacity-0 group-hover/task:opacity-100 focus-within:opacity-100 transition-opacity">
-                                    {/* Edit Task Button */} 
                                     <button 
                                       onClick={() => openEditTaskModal(milestone.id, task)}
-                                      className="p-0.5 text-gray-400 hover:text-blue-600"
+                                      className="p-0.5 text-gray-400 hover:text-blue-600 dark:text-gray-500 dark:hover:text-blue-400"
                                       aria-label={`Edit task ${task.description}`}
                                     >
                                         <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -705,10 +691,9 @@ export default function ProjectDetailClient({
                                         </svg>
                                     </button>
                                     
-                                    {/* Delete Task Button */}
                                     <button 
                                       onClick={() => handleDeleteTask(milestone.id, task.id, task.description)}
-                                      className="p-0.5 text-gray-400 hover:text-red-600"
+                                      className="p-0.5 text-gray-400 hover:text-red-600 dark:text-gray-500 dark:hover:text-red-400"
                                       aria-label={`Delete task ${task.description}`}
                                     >
                                       <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -729,13 +714,12 @@ export default function ProjectDetailClient({
             </div>
           </div>
 
-          {/* NEW: Theoretical Background */}
-          <div className="bg-white shadow rounded-lg mb-6">
-            <div className="px-6 py-5 border-b border-gray-200 flex justify-between items-center">
-              <h2 className="text-lg font-medium text-gray-900">Theoretical Background</h2>
+          <div className="bg-white dark:bg-gray-800 shadow rounded-lg mb-6 border border-gray-200 dark:border-gray-700">
+            <div className="px-6 py-5 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
+              <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">Theoretical Background</h2>
               <button 
                 onClick={() => setIsAddSourceModalOpen(true)}
-                className="inline-flex items-center px-3 py-1.5 border border-transparent text-sm font-medium rounded-md text-blue-700 bg-blue-100 hover:bg-blue-200"
+                className="inline-flex items-center px-3 py-1.5 border border-transparent text-sm font-medium rounded-md text-blue-700 bg-blue-100 hover:bg-blue-200 dark:bg-blue-900/50 dark:text-blue-300 dark:hover:bg-blue-900/70"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -745,35 +729,32 @@ export default function ProjectDetailClient({
             </div>
              <div className="overflow-hidden">
                {currentProject.theoreticalBackground.length === 0 ? (
-                  <p className="px-6 py-4 text-sm text-gray-500">No theoretical sources listed.</p>
+                  <p className="px-6 py-4 text-sm text-gray-500 dark:text-gray-400">No theoretical sources listed.</p>
                ) : (
-                 <ul className="divide-y divide-gray-200">
+                 <ul className="divide-y divide-gray-200 dark:divide-gray-700">
                   {currentProject.theoreticalBackground.map((source: TheoreticalSource) => (
                     <li key={source.id} className="px-6 py-4 flex items-center justify-between group relative">
                       <div className="flex items-center min-w-0 flex-1">
-                         <span className="inline-block mr-3 px-2 py-0.5 rounded text-xs font-medium bg-purple-100 text-purple-800 capitalize">{source.type}</span>
+                         <span className="inline-block mr-3 px-2 py-0.5 rounded text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900/50 dark:text-purple-300 capitalize">{source.type}</span>
                          <div className="min-w-0 flex-1">
-                           <p className="text-sm font-medium text-gray-900 truncate">{source.title}</p>
-                           {source.url && <a href={source.url} target="_blank" rel="noopener noreferrer" className="text-xs text-blue-500 hover:underline truncate block">{source.url}</a>}
-                           {source.notes && <p className="text-xs text-gray-500 mt-1">Notes: {source.notes}</p>}
+                           <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">{source.title}</p>
+                           {source.url && <a href={source.url} target="_blank" rel="noopener noreferrer" className="text-xs text-blue-500 hover:underline dark:text-blue-400 truncate block">{source.url}</a>}
+                           {source.notes && <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Notes: {source.notes}</p>}
                          </div>
                       </div>
-                         {/* Buttons Container */} 
                          <div className="absolute top-1/2 right-2 transform -translate-y-1/2 flex items-center space-x-1 opacity-0 group-hover:opacity-100 focus-within:opacity-100 transition-opacity">
-                             {/* Edit Source Button */}
                              <button 
                                onClick={() => openEditSourceModal(source)}
-                               className="p-1 text-gray-400 hover:text-blue-600"
+                               className="p-1 text-gray-400 hover:text-blue-600 dark:text-gray-500 dark:hover:text-blue-400"
                                aria-label={`Edit source ${source.title}`}
                              >
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                                 </svg>
                              </button>
-                             {/* Delete Source Button */}
                              <button 
                                onClick={() => handleDeleteSource(source.id, source.title)}
-                               className="p-1 text-gray-400 hover:text-red-600"
+                               className="p-1 text-gray-400 hover:text-red-600 dark:text-gray-500 dark:hover:text-red-400"
                                aria-label={`Delete source ${source.title}`}
                              >
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -788,10 +769,9 @@ export default function ProjectDetailClient({
              </div>
           </div>
           
-          {/* NEW: Coding Section */}
-          <div className="bg-white shadow rounded-lg mb-6">
-            <div className="px-6 py-5 border-b border-gray-200">
-              <h2 className="text-lg font-medium text-gray-900">Coding</h2>
+          <div className="bg-white dark:bg-gray-800 shadow rounded-lg mb-6 border border-gray-200 dark:border-gray-700">
+            <div className="px-6 py-5 border-b border-gray-200 dark:border-gray-700">
+              <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">Coding</h2>
             </div>
             <div className="px-6 py-5 space-y-4">
               <InlineEditField
@@ -816,10 +796,9 @@ export default function ProjectDetailClient({
             </div>
           </div>
           
-          {/* NEW: Results Section */}
-          <div className="bg-white shadow rounded-lg mb-6">
-            <div className="px-6 py-5 border-b border-gray-200">
-              <h2 className="text-lg font-medium text-gray-900">Results</h2>
+          <div className="bg-white dark:bg-gray-800 shadow rounded-lg mb-6 border border-gray-200 dark:border-gray-700">
+            <div className="px-6 py-5 border-b border-gray-200 dark:border-gray-700">
+              <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">Results</h2>
             </div>
             <div className="px-6 py-5">
               <InlineEditField
@@ -834,10 +813,9 @@ export default function ProjectDetailClient({
             </div>
           </div>
           
-          {/* NEW: Notes Section */}
-          <div className="bg-white shadow rounded-lg mb-6">
-            <div className="px-6 py-5 border-b border-gray-200">
-              <h2 className="text-lg font-medium text-gray-900">My Notes & Thoughts</h2>
+          <div className="bg-white dark:bg-gray-800 shadow rounded-lg mb-6 border border-gray-200 dark:border-gray-700">
+            <div className="px-6 py-5 border-b border-gray-200 dark:border-gray-700">
+              <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">My Notes & Thoughts</h2>
             </div>
             <div className="px-6 py-5">
               <InlineEditField
@@ -854,14 +832,12 @@ export default function ProjectDetailClient({
         </div>
       </div>
       
-      {/* Render the Modal */}
       <AddMilestoneModal 
         isOpen={isAddMilestoneModalOpen}
         onClose={() => setIsAddMilestoneModalOpen(false)}
         onAddMilestone={handleAddMilestone}
         projectId={currentProject.id} 
       />
-      {/* Add Task Modal (render only when needed) */}
       {addingTaskToMilestoneId && (
          <AddTaskModal 
            isOpen={isAddTaskModalOpen}
@@ -871,21 +847,18 @@ export default function ProjectDetailClient({
            milestoneId={addingTaskToMilestoneId}
          />
       )}
-      {/* Render Add Source Modal */}
       <AddSourceModal 
          isOpen={isAddSourceModalOpen}
          onClose={() => setIsAddSourceModalOpen(false)}
          onAddSource={handleAddSource}
          projectId={currentProject.id} 
       />
-      {/* Render Edit Milestone Modal */}
       <EditMilestoneModal
         isOpen={isEditMilestoneModalOpen}
         onClose={closeEditMilestoneModal}
         onUpdateMilestone={handleUpdateMilestone}
         milestone={editingMilestone} 
       />
-      {/* Render Edit Task Modal */}
       {editingTask && editingTaskMilestoneId && (
           <EditTaskModal
             isOpen={isEditTaskModalOpen}
@@ -896,7 +869,6 @@ export default function ProjectDetailClient({
             milestoneId={editingTaskMilestoneId}
           />
       )}
-      {/* Render Edit Source Modal */}
       {editingSource && (
         <EditSourceModal
           isOpen={isEditSourceModalOpen}
