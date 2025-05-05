@@ -33,8 +33,6 @@ const config: Config = {
        }
     },
   },
-  plugins: [
-      // Add any plugins here, e.g., require('@tailwindcss/forms')
-  ],
+  plugins: [],
 };
 export default config; 
